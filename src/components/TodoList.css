@@ -1,0 +1,9 @@
+.todo-list {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.todo-list-item {
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+}
