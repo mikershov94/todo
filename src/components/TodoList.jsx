@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TodoListItem from './TodoListItem';
-import './TodoList.css';
+import './TodoList.sass';
 
 const TodoList = ({ data }) => {
 

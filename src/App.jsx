@@ -3,6 +3,8 @@ import React from 'react';
 import AppHeader from './components/AppHeader';
 import SearchPanel from './components/SearchPanel';
 import TodoList from './components/TodoList';
+import ItemStatusFilter from './components/ItemStatusFilter';
+import './App.sass';
 
 const App = () => {
 
@@ -17,10 +19,19 @@ const App = () => {
 	const done = 1;
 
 	return(
-		<div>
-			<AppHeader toDo={toDo} done={done} />
-			<SearchPanel />
-			<TodoList data={ todoData } />
+		<div className="wrapper">
+			<div className="container">
+				<AppHeader toDo={toDo} done={done} />
+				<div className="row">
+					<div className="col-9 search-panel">
+						<SearchPanel />
+					</div>
+					<div className="col-3 item-status-filter">
+						<ItemStatusFilter />
+					</div>
+				</div>
+				<TodoList data={ todoData } />
+			</div>
 		</div>
 	);
 }
