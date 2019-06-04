@@ -1,17 +1,26 @@
+@import "./../../App/App.sass"
+
 .todo-list-item
 	font-size: 1rem
 
 .todo-list-item button
-	height: 2.4rem
+	height: 1.8rem
 	width: 2.4rem
 	margin-left: 0.5rem
 
 .todo-list-item-label
-	margin-top: 0.3rem
-	margin-left: 1.25rem
-	line-height: 30px
+	margin-top: 0.34rem
+	margin-left: 1rem
+	line-height: 17px
 	cursor: pointer
 	user-select: none
+
+.done
+	text-decoration: line-through
+
+.important
+	color: steelblue
+	font-weight: bold
 
 .todo-list-item.done .todo-list-item-label
 	text-decoration: line-through
@@ -23,7 +32,7 @@
 i
 	position: relative
 	right: 0.13rem
-	top: 0.1rem
+	bottom: 0.19rem
 
 .btns
 	padding-left: 2rem

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import TodoListItem from './TodoListItem';
+import TodoListItem from './../TodoListItem';
 import './TodoList.sass';
 
-const TodoList = ({ data }) => {
+const TodoList = ({ data, onDelete }) => {
 
 	const elements = data.map((item) => {
 
@@ -11,7 +11,7 @@ const TodoList = ({ data }) => {
 
 		return(
 			<li key={id} className='list-group-item todo-list-item'>
-				<TodoListItem { ...itemProps } />
+				<TodoListItem { ...itemProps } onDelete={ () => onDelete(id) } />
 			</li>
 		);
 	})
