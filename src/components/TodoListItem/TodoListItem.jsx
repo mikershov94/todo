@@ -2,58 +2,32 @@ import React from 'react';
 import './TodoListItem.sass';
 
 
-class TodoListItem extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			done: false,
-			important: false,
-		};
+const TodoListItem = ({ label, important, done, onDelete, onToggleImportant, onToggleDone }) => {
+	let classNames = "col-9 todo-list-item-label"
 
-		this.handlerClickLabel = () => {
-			this.setState( (state) => {
-				return {
-					done: !state.done,
-				}
-			});
-		};
+	if (important) {
+		classNames += " important";
+	};
 
-		this.handlerImportant = () => {
-			this.setState( (state) => {
-				return {
-					important: !state.important,
-				}
-			});
-		}
-	}
+	if (done) {
+		classNames += " done";
+	};
 
-	render() {
-		const { label, onDelete } = this.props;
-		const { done, important } = this.state;
 
-		let classNames = "col-9 todo-list-item-label"
-		if (done) {
-			classNames += " done"
-		}
-
-		if (important) {
-			classNames += " important"
-		}
-
-		return (
+	return (
 		<div className="d-flex row todo-list-item">
 			<div
 				className={ classNames }
-				onClick={ onDelete }
+				onClick={ onToggleDone }
 			>
-				{ label }
+			{ label }
 			</div>
 			<div className="d-flex col">
 				<div className="btns">
 					<button
 						type="button" 
 						className="btn btn-outline-success btn-sm "
-						onClick={ this.handlerImportant }>
+						onClick={ onToggleImportant }>
 						<i className="material-icons">priority_high</i>
 					</button>
 
@@ -67,9 +41,7 @@ class TodoListItem extends React.Component {
 			</div>
 		</div>
 	);
-	}
-
-}
+};
 
 
 export default TodoListItem;
