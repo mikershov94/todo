@@ -26,7 +26,9 @@ class App extends React.Component {
 						this.createTodoItem('Drink Coffee'),
 						this.createTodoItem('Make Awesome App'),
 						this.createTodoItem('Have a lunch'),
-			]
+			],
+			term: '',
+			filter: 'all',
 		};
 
 		this.toggleProperty = (arr, id, propName) => {		//функция изменяет какое-либо свойство
@@ -78,6 +80,18 @@ class App extends React.Component {
 			});
 		};
 
+		this.onSearchItems = (term) => {
+			this.setState({
+				term: term,
+			})
+		};
+
+		this.onClickFilter = (filter) => {
+			this.setState({
+				filter: filter,
+			})
+		};
+
 		this.onToggleImportant = (id) => {
 			this.setState(({ todoData }) => {		////вызываем setState
 				return {
@@ -93,14 +107,40 @@ class App extends React.Component {
 				}
 			})
 		};
+
+	}
+
+	search(items, term) {
+			if (term.length === 0) {
+				return items;
+			};
+
+			return items.filter((item) => {
+				return item.label.toLowerCase().indexOf(term.toLowerCase()) > -1;
+			});
+	}
+
+	filter(items, filter) {
+		switch (filter) {
+			case 'all':
+				return items;
+			case 'active':
+				return items.filter((item) => !item.done);
+			case 'done':
+				return items.filter((item) => item.done);
+			default:
+				return items;
+		};
 	}
 
 	render() {
-		const { todoData } = this.state;
+		const { todoData, term } = this.state;
 		const doneCount = todoData
 											.filter((el) => el.done).length; //фильтруем элементы массива todoData
 																											// по свойству done со щначением true
 		const todoCount = todoData.length - doneCount;		//от всех задач отнимаем сделанные
+		const visibleItems = this.search(todoData, term);
+		const filterData = this.filter(visibleItems, this.state.filter);
 
 		return(
 			<div className="wrapper">
@@ -110,13 +150,14 @@ class App extends React.Component {
 										 />
 					<div className="row">
 						<div className="col-9 search-panel">
-							<SearchPanel />
+							<SearchPanel onSearchItems={ this.onSearchItems } />
 						</div>
 						<div className="col-3 item-status-filter">
-							<ItemStatusFilter />
+							<ItemStatusFilter filter={ this.state.filter }
+																onClickFilter={ this.onClickFilter } />
 						</div>
 					</div>
-					<TodoList data={ this.state.todoData }
+					<TodoList data={ filterData }
 										onDelete={ this.handlerDelete }
 										addItem={ this.handlerAddItem }
 										onToggleImportant={ this.onToggleImportant }
